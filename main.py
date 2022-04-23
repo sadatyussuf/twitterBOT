@@ -1,12 +1,14 @@
 import tweepy
+from dotenv import load_dotenv
 
-CONSUMER_KEY = "R7DtIMMSlEBfcaU8h5wX812il"
-CONSUMER_SECRET = "gOZKbDg7WLl5vLj9cqAqR3EBnPvRIrkJmRjEZqseovfZCZkYsC"
-ACCESS_TOKEN = "784007214503723008-CCxhAJh38jvGgMce33Tid8dHp6iDKkP"
-ACCESS_SECRET = "zWRr1yPzooOnHvRiRhc0f2vWrD2ZhTtL6t7VXotTmgDwF"
-BEARER_TOKEN = "AAAAAAAAAAAAAAAAAAAAANSIbgEAAAAAQJj29L%2FmHvyh0ftH1yqfQOBLIYQ%3DuvHsSqibTd9NibMpYNniyVQrLLeGHolkZURQXhitOKINmT4gRH"
+import os
 
+load_dotenv()
 
+CONSUMER_KEY = os.environ.get("CONSUMER_KEY")
+CONSUMER_SECRET = os.environ.get("CONSUMER_SECRET")
+ACCESS_TOKEN = os.environ.get("ACCESS_TOKEN")
+ACCESS_SECRET = os.environ.get("ACCESS_SECRET")
 # Authenticate to Twitter
 auth = tweepy.OAuthHandler(CONSUMER_KEY,CONSUMER_SECRET)
 auth.set_access_token(ACCESS_TOKEN,ACCESS_SECRET)
@@ -39,3 +41,6 @@ print(user.screen_name)
 print(user.description)
 print(user.location)
 print(user.followers_count)
+
+# Tweeting
+api.update_status("Hello World from Tweepy Python")
