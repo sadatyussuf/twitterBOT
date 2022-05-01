@@ -25,13 +25,6 @@ api = tweepy.API(auth,wait_on_rate_limit=True)
 
 #* Authenticate to Twitter
 def authenticate():
-    # try:
-    #     api.verify_credentials()
-    #     logging.info("Authentication Success!")
-    #     return True
-    # except:
-    #     logging.exception("Failed Authentication")
-    #     return False
     if not api.verify_credentials():
         logging.error("Authentication Failed",exc_info=True)
         return False
@@ -40,13 +33,32 @@ def authenticate():
         return True
 
 
-def main():
+def search_tweets(query,count):
+    return  api.search_tweets(q=query,count=count,lang="en",result_type='recent')
+
+def like_tweets(tweets):
+    try:
+        pass
+    except tweepy.TweepError as e:
+        pass
+def main(query,count=2):
+    c = 1
     if authenticate():
-        print("do stuff")
+        search_resp =search_tweets(query,count)
+    
+        for tweet in  search_resp:
+            print(f"({c}) - {tweet.user.name} with id of {tweet.id} said: {tweet.text} created at : {tweet.created_at}")
+            if like_tweets(tweet):
+                pass
+            print()
+            time.sleep(10)
+            c+=1
+
+
 
 
 if __name__ == '__main__':
-    main()
+    main('#api')
 
 
 
